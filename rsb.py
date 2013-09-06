@@ -13,8 +13,8 @@ class RyoubaBoard(wx.Frame):
         filemenu = wx.Menu()
         menuAbout = filemenu.Append(wx.ID_ABOUT, "&About","Push buttons to make Ryouba talk!")
         menuOpen = filemenu.Append(wx.ID_OPEN,"&Open","Select a clip.")
+        menuSaveAs = filemenu.Append(wx.ID_SAVEAS, "Save &As...", "Save this shit")
         menuExit = filemenu.Append(wx.ID_EXIT,"&Exit","Run away!")
-        menuSaveAs = filemenu.Append(wx.SAVE_AS, "Save &As...", "Save this shit")
 
         menuBar = wx.MenuBar()
         menuBar.Append(filemenu,"&File")
@@ -24,6 +24,7 @@ class RyoubaBoard(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnAbout, menuAbout)
         self.Bind(wx.EVT_MENU, self.OnExit, menuExit)
         self.Bind(wx.EVT_MENU, self.OnOpen, menuOpen)
+        self.Bind(wx.EVT_MENU, self.OnSaveAs, menuSaveAs)
 
         self.buttons = []
         self.files = []
@@ -49,6 +50,24 @@ class RyoubaBoard(wx.Frame):
 
     def OnExit(self,e):
         self.Close(True) # Close teh frame
+
+    def OnSaveAs(self, e):
+       self.dirname = "."
+
+       dlg = wx.FileDialog(self, "Choose a save location", self.dirname, "New Soundboard", "*.sb", wx.OPEN)
+      
+       if dlg.ShowModal() == wx.ID_OK:
+           self.filename = dlg.GetFilename()
+           self.dirname = dlg.GetDirectory()
+           self.directory = self.dirname
+           file = open(os.path.join(self.dirname, self.filename), 'w+')
+
+           for files in self.buttons:
+               file.write(files.myname + "\n")
+
+
+           file.close()
+       dlg.Destroy() 
 
     def OnOpen(self,e):
       global buttoncount
