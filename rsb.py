@@ -14,6 +14,7 @@ class RyoubaBoard(wx.Frame):
         menuAbout = filemenu.Append(wx.ID_ABOUT, "&About","Push buttons to make Ryouba talk!")
         menuOpen = filemenu.Append(wx.ID_OPEN,"&Open","Select a clip.")
         menuExit = filemenu.Append(wx.ID_EXIT,"&Exit","Run away!")
+        menuSaveAs = filemenu.Append(wx.SAVE_AS, "Save &As...", "Save this shit")
 
         menuBar = wx.MenuBar()
         menuBar.Append(filemenu,"&File")
