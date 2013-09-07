@@ -11,14 +11,27 @@ class RyoubaBoard(wx.Frame):
         self.CreateStatusBar() # at bottom of window
 
         filemenu = wx.Menu()
-        menuAbout = filemenu.Append(wx.ID_ABOUT, "&About","Push buttons to make Ryouba talk!")
-        menuAdd = filemenu.Append(wx.ID_ADD,"&Add Sound","Select a clip.")
+        audiomenu = wx.Menu()
+        helpmenu = wx.Menu()
+
+
+        ##### FILE MENU ####
         menuOpen= filemenu.Append(wx.ID_OPEN, "&Open", "Open a soundboard")
         menuSaveAs = filemenu.Append(wx.ID_SAVEAS, "Save &As...", "Save this shit")
         menuExit = filemenu.Append(wx.ID_EXIT,"&Exit","Run away!")
+        
+        #### AUDIO MENU ####
+        menuAdd = audiomenu.Append(wx.ID_ADD,"&Add Sound","Select a clip.")
+
+        #### HELP MENU ####
+        menuAbout = helpmenu.Append(wx.ID_ABOUT, "&About","Push buttons to make Ryouba talk!")
+        
 
         menuBar = wx.MenuBar()
         menuBar.Append(filemenu,"&File")
+        menuBar.Append(audiomenu,"&Audio")
+        menuBar.Append(helpmenu,"&Help")
+
 
         self.SetMenuBar(menuBar)
 
@@ -41,7 +54,7 @@ class RyoubaBoard(wx.Frame):
         self.Show()
     
     def OnAbout(self, e):
-        dlg = wx.MessageDialog(self, "Push buttons to make Ryouba talk!", "About Ryouba Sound Board", wx.OK)
+        dlg = wx.MessageDialog(self, "Add clips and then push the buttons to hear the sounds.", "About Ryouba Sound Board", wx.OK)
         dlg.ShowModal() # Shows it.
         dlg.Destroy() # Close it.
 
@@ -104,15 +117,21 @@ class RyoubaBoard(wx.Frame):
 
     def AddClip(self, path, name):
           self.buttons.append(wx.Button(self, label=string.capitalize(name[:-4])))
-          #i = len(self.buttons) - 1
-          #self.Bind(wx.EVT_BUTTON, self.OnClick(file), self.buttons[i])
           self.buttons[-1].Bind(wx.EVT_BUTTON, self.OnClick)
           self.buttons[-1].myname = os.path.join(path, name)
+          self.buttons[-1].SetToolTipString(string.capitalize(name[:-4]))
           self.sizer.Add(self.buttons[-1], 0, wx.ALIGN_CENTER|wx.ALL, 5)
+          
+          # Buttons won't align right with this next line. Why? 
+          #self.buttons[-1].SetMaxSize(wx.Size(100, 50))
           self.Fit()
 
     def OnClick(self, event):
+          #filename = event.GetEventObject().myname.rsplit("/")[-1][:-1]
+          filename = str(event.GetEventObject().myname)
+          self.PushStatusText(string.capitalize(filename.rsplit("/", 1)[-1][:-4]))
           audio.sayit(event.GetEventObject().myname)
+          self.PushStatusText("")
 
 app = wx.App(False)
 frame = RyoubaBoard(None, "Ryouba Sound Board")
