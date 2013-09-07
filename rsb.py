@@ -21,7 +21,8 @@ class RyoubaBoard(wx.Frame):
         menuExit = filemenu.Append(wx.ID_EXIT,"&Exit","Run away!")
         
         #### AUDIO MENU ####
-        menuAdd = audiomenu.Append(wx.ID_ADD,"&Add Sound","Select a clip.")
+        menuAdd = audiomenu.Append(wx.ID_ADD,"&Add Audio Clip","Select a clip.")
+        menuImport = audiomenu.Append(-1,"&Import Soundboard","Select a clip.")
 
         #### HELP MENU ####
         menuAbout = helpmenu.Append(wx.ID_ABOUT, "&About","Push buttons to make Ryouba talk!")
@@ -40,6 +41,7 @@ class RyoubaBoard(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnAdd, menuAdd)
         self.Bind(wx.EVT_MENU, self.OnOpen, menuOpen)
         self.Bind(wx.EVT_MENU, self.OnSaveAs, menuSaveAs)
+        self.Bind(wx.EVT_MENU, self.OnImport, menuImport)
 
         self.buttons = []
         self.files = []
@@ -80,6 +82,19 @@ class RyoubaBoard(wx.Frame):
        dlg.Destroy() 
 
     def OnOpen(self,e):
+      if self.buttons is not None:
+          self.RemoveButtons()
+
+      self.OnImport(e)
+
+    def RemoveButtons(self):
+      for button in self.buttons:
+          button.Destroy()
+      
+      self.buttons = []
+
+
+    def OnImport(self, e):
       self.dirname = "clips" if self.directory is None else self.directory
       dlg = wx.FileDialog(self, "Choose a file", self.dirname, "Open a soundboard", "*.rsb", wx.OPEN)
       
@@ -91,13 +106,12 @@ class RyoubaBoard(wx.Frame):
           line = file.readline()[:-1]
           while line != "":
               print line
-            # TODO: split path up to provide two parameters here.
               self.AddClip(line.rsplit("/", 1)[0], line.rsplit("/")[-1])
               line = file.readline()[:-1]
 
           file.close()
-      dlg.Destroy()
 
+#      dlg.destroy()
 
     def OnAdd(self,e):
       global buttoncount
