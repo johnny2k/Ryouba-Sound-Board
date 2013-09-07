@@ -25,6 +25,7 @@ class RyoubaBoard(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnAbout, menuAbout)
         self.Bind(wx.EVT_MENU, self.OnExit, menuExit)
         self.Bind(wx.EVT_MENU, self.OnAdd, menuAdd)
+        self.Bind(wx.EVT_MENU, self.OnOpen, menuOpen)
         self.Bind(wx.EVT_MENU, self.OnSaveAs, menuSaveAs)
 
         self.buttons = []
@@ -50,7 +51,7 @@ class RyoubaBoard(wx.Frame):
     def OnSaveAs(self, e):
        self.dirname = "."
 
-       dlg = wx.FileDialog(self, "Choose a save location", self.dirname, "New Soundboard", "*.sb", wx.OPEN)
+       dlg = wx.FileDialog(self, "Choose a save location", self.dirname, "New Soundboard", "*.rsb", wx.OPEN)
       
        if dlg.ShowModal() == wx.ID_OK:
            self.filename = dlg.GetFilename()
@@ -64,6 +65,26 @@ class RyoubaBoard(wx.Frame):
 
            file.close()
        dlg.Destroy() 
+
+    def OnOpen(self,e):
+      self.dirname = "clips" if self.directory is None else self.directory
+      dlg = wx.FileDialog(self, "Choose a file", self.dirname, "Open a soundboard", "*.rsb", wx.OPEN)
+      
+      if dlg.ShowModal() == wx.ID_OK:
+          self.filename = dlg.GetFilename()
+          self.dirname = dlg.GetDirectory()
+          self.directory = self.dirname
+          file = open(os.path.join(self.dirname, self.filename), 'r')
+          line = file.readline()[:-1]
+          while line != "":
+              print line
+            # TODO: split path up to provide two parameters here.
+              self.AddClip(line.rsplit("/", 1)[0], line.rsplit("/")[-1])
+              line = file.readline()[:-1]
+
+          file.close()
+      dlg.Destroy()
+
 
     def OnAdd(self,e):
       global buttoncount
