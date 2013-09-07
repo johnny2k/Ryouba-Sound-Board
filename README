@@ -16,53 +16,53 @@
 #   |______  /\____(____  /__|  \____ |        
 #          \/           \/           \/
 
-  Potentially ASked Questions
+Potentially ASked Questions
 
-  1. What is this thing?
+1. What is this thing?
 
-      This is a soundboard application created using Python, PyAudio, and wxPython. 
+    This is a soundboard application created using Python, PyAudio, and wxPython. 
 
-  2. What does it do?
-        
-      The Ryouba Soundboard allows you to load sound files which can be played by 
-      clicking on the button that is created. You can save the soundboard for 
-      later use. The saved file is a simple list of files that will be loaded. 
+2. What does it do?
       
-  3. What are its major limitaitons?
-
-      a. Soundboards can not be easily shared because .rsb files are simple lists 
-         of files that must exist on your system. Maybe this will change someday. 
-
-      b. No sound files are included even though you might expect there to be some
-         famous quotes from the lips of the famous Ryouba. 
-
-  4. Who the hell is Ryouba?
+    The Ryouba Soundboard allows you to load sound files which can be played by 
+    clicking on the button that is created. You can save the soundboard for 
+    later use. The saved file is a simple list of files that will be loaded. 
     
-      A friend of mine that used to say some of the funniest stuff I've ever heard
-      in my life. One night while our Minecraft server was down we played Minecraft
-      D&D style. I recorded the entire session and saved over 100 clips of Ryouba
-      so that I could fool people on Mumble into thinking he was in channel. 
+3. What are its major limitaitons?
+
+    a. Soundboards can not be easily shared because .rsb files are simple lists 
+        of files that must exist on your system. Maybe this will change someday. 
+
+    b. No sound files are included even though you might expect there to be some
+        famous quotes from the lips of the famous Ryouba. 
+
+4. Who the hell is Ryouba?
+  
+    A friend of mine that used to say some of the funniest stuff I've ever heard
+    in my life. One night while our Minecraft server was down we played Minecraft
+    D&D style. I recorded the entire session and saved over 100 clips of Ryouba
+    so that I could fool people on Mumble into thinking he was in channel. 
 
 
-  5. How do I get started with using this stupid thing?
+5. How do I get started with using this stupid thing?
 
-      All operating systems - Install Python, PyAudio and wxPython. Run the command...
-      
-        python2 rsb.py
+    All operating systems - Install Python, PyAudio and wxPython. Run the command...
+    
+      python2 rsb.py
 
-      Linux - If you're using a Linux system try running the "rsb" file buried deep
-      within the build directory.
+    Linux - If you're using a Linux system try running the "rsb" file buried deep
+    within the build directory.
 
-  6. I want RSB to do _______. Why doesn't it do ________?
+6. I want RSB to do _______. Why doesn't it do ________?
 
-      The Ryouba Soundboard was not designed to do __________. If you would like it 
-      to ________ then send me a message requesting the feature. You could also 
-      fork this project, code the feature yourself and then send me a merge request.
-      I am likely to merge any improvements made.
+    The Ryouba Soundboard was not designed to do __________. If you would like it 
+    to ________ then send me a message requesting the feature. You could also 
+    fork this project, code the feature yourself and then send me a merge request.
+    I am likely to merge any improvements made.
 
-  7. What sort of files can it play?
+7. What sort of files can it play?
 
-      It plays .wavs just fine. I haven't tried anything else yet and don't plan to.
+    It plays .wavs just fine. I haven't tried anything else yet and don't plan to.
 
 
   
